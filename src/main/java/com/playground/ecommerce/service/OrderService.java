@@ -17,6 +17,7 @@ import com.playground.ecommerce.model.User;
 import com.playground.ecommerce.repository.CartRepository;
 import com.playground.ecommerce.repository.OrderRepository;
 import com.playground.ecommerce.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -39,20 +41,6 @@ public class OrderService {
     private final AuthenticatedUserService authenticatedUserService;
     private final CartService cartService;
     private final PricingService pricingService;
-
-    public OrderService(OrderRepository orderRepository,
-                        ProductRepository productRepository,
-                        CartRepository cartRepository,
-                        AuthenticatedUserService authenticatedUserService,
-                        CartService cartService,
-                        PricingService pricingService) {
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-        this.cartRepository = cartRepository;
-        this.authenticatedUserService = authenticatedUserService;
-        this.cartService = cartService;
-        this.pricingService = pricingService;
-    }
 
     @Transactional
     public OrderResponse checkout(String email, CheckoutRequest request) {

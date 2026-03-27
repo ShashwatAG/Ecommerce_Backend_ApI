@@ -1,8 +1,13 @@
 package com.playground.ecommerce.dto.order;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class CheckoutRequest {
 
     @NotBlank(message = "Shipping address is required.")
@@ -15,29 +20,4 @@ public class CheckoutRequest {
 
     @Size(max = 1000, message = "Notes must be at most 1000 characters.")
     private String notes;
-
-    public String getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }
-

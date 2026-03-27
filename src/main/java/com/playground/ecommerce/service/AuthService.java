@@ -11,6 +11,7 @@ import com.playground.ecommerce.model.User;
 import com.playground.ecommerce.repository.CartRepository;
 import com.playground.ecommerce.repository.UserRepository;
 import com.playground.ecommerce.security.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -29,18 +31,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-
-    public AuthService(UserRepository userRepository,
-                       CartRepository cartRepository,
-                       PasswordEncoder passwordEncoder,
-                       AuthenticationManager authenticationManager,
-                       JwtService jwtService) {
-        this.userRepository = userRepository;
-        this.cartRepository = cartRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
-    }
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -53,7 +43,7 @@ public class AuthService {
         user.setFullName(request.getFullName().trim());
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.CUSTOMER);
+        user.setRole(Role.USER);
         user.setEnabled(true);
 
         User savedUser = userRepository.save(user);

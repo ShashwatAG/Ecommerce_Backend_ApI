@@ -4,6 +4,7 @@ import com.playground.ecommerce.dto.cart.AddCartItemRequest;
 import com.playground.ecommerce.dto.cart.CartResponse;
 import com.playground.ecommerce.dto.cart.UpdateCartItemRequest;
 import com.playground.ecommerce.service.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,13 +21,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/cart")
+@RequiredArgsConstructor
 public class CartController {
 
     private final CartService cartService;
-
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
 
     @GetMapping
     public CartResponse getCart(Authentication authentication) {
@@ -58,4 +56,3 @@ public class CartController {
         cartService.clearCart(authentication.getName());
     }
 }
-

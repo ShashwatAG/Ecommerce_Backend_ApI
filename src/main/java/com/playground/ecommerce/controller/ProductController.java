@@ -3,6 +3,7 @@ package com.playground.ecommerce.controller;
 import com.playground.ecommerce.dto.product.ProductRequest;
 import com.playground.ecommerce.dto.product.ProductResponse;
 import com.playground.ecommerce.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,13 +24,10 @@ import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/products")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public Page<ProductResponse> searchProducts(@RequestParam(required = false) String keyword,

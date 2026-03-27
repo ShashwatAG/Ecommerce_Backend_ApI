@@ -11,6 +11,7 @@ import com.playground.ecommerce.model.CartItem;
 import com.playground.ecommerce.model.Product;
 import com.playground.ecommerce.model.User;
 import com.playground.ecommerce.repository.CartRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,19 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CartService {
 
     private final CartRepository cartRepository;
     private final AuthenticatedUserService authenticatedUserService;
     private final ProductService productService;
-
-    public CartService(CartRepository cartRepository,
-                       AuthenticatedUserService authenticatedUserService,
-                       ProductService productService) {
-        this.cartRepository = cartRepository;
-        this.authenticatedUserService = authenticatedUserService;
-        this.productService = productService;
-    }
 
     @Transactional
     public CartResponse getCart(String email) {

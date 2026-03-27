@@ -1,12 +1,13 @@
-# Ecommerce Backend API
+# Ecommerce Platform
 
-A full-featured Spring Boot ecommerce backend with:
+A resume-aligned full-stack ecommerce project with:
 
-- JWT authentication and role-based authorization
-- Product and category catalog management
-- Cart management and checkout flow
-- Order management for customers and admins
-- H2 database for local development
+- Spring Boot REST API for products, cart, and orders
+- JWT authentication with `ADMIN` and `USER` roles
+- Dynamic filtering and pagination using JPA Specifications
+- RFC 7807 style `application/problem+json` error responses
+- PostgreSQL-ready configuration with Docker Compose
+- React frontend for authentication, catalog, cart, and admin workflows
 - Swagger UI for API exploration
 
 ## Stack
@@ -15,12 +16,21 @@ A full-featured Spring Boot ecommerce backend with:
 - Spring Boot 2.7
 - Spring Security
 - Spring Data JPA
-- H2
+- PostgreSQL
+- React
+- Vite
+- Docker Compose
 - springdoc-openapi
 
-## Run
+## Run The Backend
 
-This project uses Maven. If Maven is installed locally:
+1. Start PostgreSQL:
+
+```bash
+docker compose up -d
+```
+
+2. Run the backend:
 
 ```bash
 mvn spring-boot:run
@@ -29,12 +39,30 @@ mvn spring-boot:run
 Once running:
 
 - Swagger UI: `http://localhost:8080/swagger-ui.html`
-- H2 Console: `http://localhost:8080/h2-console`
+
+If you want the old H2-only mode for quick local testing:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+```
+
+## Run The Frontend
+
+From the `frontend` folder:
+
+```bash
+npm.cmd install
+npm.cmd run dev
+```
+
+Then open:
+
+- Frontend: `http://localhost:5173`
 
 ## Seeded Accounts
 
 - Admin: `admin@shop.local` / `Admin@123`
-- Customer: `customer@shop.local` / `Customer@123`
+- User: `customer@shop.local` / `Customer@123`
 
 ## Main APIs
 
@@ -48,9 +76,17 @@ Once running:
 - `GET /api/orders/mine`
 - `GET /api/orders/admin`
 
-## Database
+## Project Layout
 
-By default the app uses in-memory H2. You can override it with environment variables:
+- `src/main/java/...` Spring Boot backend
+- `frontend/` React + Vite frontend
+- `docker-compose.yml` PostgreSQL service
+- `.env.example` backend and frontend environment values
+- `ecommerce-api.http` IntelliJ HTTP client requests
+
+## Environment Variables
+
+Main backend settings:
 
 - `DB_URL`
 - `DB_USERNAME`
@@ -58,3 +94,17 @@ By default the app uses in-memory H2. You can override it with environment varia
 - `JWT_SECRET`
 - `JWT_EXPIRATION_MILLIS`
 
+Frontend:
+
+- `VITE_API_BASE_URL`
+
+## Error Format
+
+Validation and business errors now return RFC 7807 style responses with:
+
+- `type`
+- `title`
+- `status`
+- `detail`
+- `instance`
+- optional `errors`

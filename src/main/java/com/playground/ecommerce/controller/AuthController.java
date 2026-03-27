@@ -4,6 +4,7 @@ import com.playground.ecommerce.dto.auth.AuthResponse;
 import com.playground.ecommerce.dto.auth.LoginRequest;
 import com.playground.ecommerce.dto.auth.RegisterRequest;
 import com.playground.ecommerce.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,13 +16,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,4 +32,3 @@ public class AuthController {
         return authService.login(request);
     }
 }
-

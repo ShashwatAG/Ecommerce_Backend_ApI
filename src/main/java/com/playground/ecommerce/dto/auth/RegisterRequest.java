@@ -1,9 +1,14 @@
 package com.playground.ecommerce.dto.auth;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class RegisterRequest {
 
     @NotBlank(message = "Full name is required.")
@@ -17,29 +22,4 @@ public class RegisterRequest {
     @NotBlank(message = "Password is required.")
     @Size(min = 8, message = "Password must be at least 8 characters.")
     private String password;
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
-

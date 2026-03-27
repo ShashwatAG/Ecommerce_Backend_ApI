@@ -7,6 +7,7 @@ import com.playground.ecommerce.exception.ResourceNotFoundException;
 import com.playground.ecommerce.model.Category;
 import com.playground.ecommerce.model.Product;
 import com.playground.ecommerce.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
-
-    public ProductService(ProductRepository productRepository, CategoryService categoryService) {
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-    }
 
     @Transactional(readOnly = true)
     public Page<ProductResponse> searchProducts(String keyword,

@@ -6,6 +6,7 @@ import com.playground.ecommerce.exception.BadRequestException;
 import com.playground.ecommerce.exception.ResourceNotFoundException;
 import com.playground.ecommerce.model.Category;
 import com.playground.ecommerce.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<CategoryResponse> getAllCategories() {

@@ -1,16 +1,24 @@
-# Ecommerce Platform
+# Ecommerce Backend API
 
-A resume-aligned full-stack ecommerce project with:
+A Spring Boot ecommerce application focused on secure backend workflows for authentication, catalog management, cart operations, and order processing.
 
-- Spring Boot REST API for products, cart, and orders
-- JWT authentication with `ADMIN` and `USER` roles
-- Dynamic filtering and pagination using JPA Specifications
+## Overview
+
+This project follows a layered `Controller -> Service -> Repository` architecture and uses Spring Security, JWT, JPA, and PostgreSQL to model a practical ecommerce backend. It includes role-based access control, structured error handling, OpenAPI documentation, and a companion frontend for local testing.
+
+## Core Features
+
+- Authentication and authorization with JWT
+- Role-based access for `ADMIN` and `USER`
+- Product and category management APIs
+- Cart management and checkout workflow
+- Order tracking and admin order updates
+- Filtering and pagination with JPA Specifications
 - RFC 7807 style `application/problem+json` error responses
-- PostgreSQL-ready configuration with Docker Compose
-- React frontend for authentication, catalog, cart, and admin workflows
-- Swagger UI for API exploration
+- Swagger UI for API exploration and testing
+- PostgreSQL configuration with optional local H2 profile
 
-## Stack
+## Tech Stack
 
 - Java 8
 - Spring Boot 2.7
@@ -21,6 +29,14 @@ A resume-aligned full-stack ecommerce project with:
 - Vite
 - Docker Compose
 - springdoc-openapi
+
+## Architecture
+
+- `controller` layer for request handling and response mapping
+- `service` layer for business logic and workflow orchestration
+- `repository` layer for persistence operations
+- `model` layer for JPA entities and relationships
+- `dto` layer for request and response contracts
 
 ## Run The Backend
 
@@ -40,7 +56,7 @@ Once running:
 
 - Swagger UI: `http://localhost:8080/swagger-ui.html`
 
-If you want the old H2-only mode for quick local testing:
+If you want the local H2 profile for quick testing:
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=local
@@ -64,7 +80,7 @@ Then open:
 - Admin: `admin@shop.local` / `Admin@123`
 - User: `customer@shop.local` / `Customer@123`
 
-## Main APIs
+## Key API Endpoints
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
@@ -76,7 +92,7 @@ Then open:
 - `GET /api/orders/mine`
 - `GET /api/orders/admin`
 
-## Project Layout
+## Project Structure
 
 - `src/main/java/...` Spring Boot backend
 - `frontend/` React + Vite frontend

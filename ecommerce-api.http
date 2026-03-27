@@ -1,0 +1,118 @@
+### Base config
+@baseUrl = http://localhost:8080
+@customerEmail = customer@shop.local
+@customerPassword = Customer@123
+@adminEmail = admin@shop.local
+@adminPassword = Admin@123
+
+### Customer login
+# @name customerLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{customerEmail}}",
+  "password": "{{customerPassword}}"
+}
+
+> {% client.global.set("customer_token", response.body.token); %}
+
+### Admin login
+# @name adminLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+> {% client.global.set("admin_token", response.body.token); %}
+
+### Public: list categories
+GET {{baseUrl}}/api/categories
+
+### Public: list products
+GET {{baseUrl}}/api/products
+
+### Customer: profile
+GET {{baseUrl}}/api/users/me
+Authorization: Bearer {{customer_token}}
+
+### Customer: get cart
+GET {{baseUrl}}/api/cart
+Authorization: Bearer {{customer_token}}
+
+### Customer: add product 1 to cart
+POST {{baseUrl}}/api/cart/items
+Authorization: Bearer {{customer_token}}
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### Customer: update cart item 1
+PUT {{baseUrl}}/api/cart/items/1
+Authorization: Bearer {{customer_token}}
+Content-Type: application/json
+
+{
+  "quantity": 1
+}
+
+### Customer: checkout
+POST {{baseUrl}}/api/orders/checkout
+Authorization: Bearer {{customer_token}}
+Content-Type: application/json
+
+{
+  "shippingAddress": "221B Baker Street, London",
+  "paymentMethod": "CARD",
+  "notes": "Leave at the front desk"
+}
+
+### Customer: my orders
+GET {{baseUrl}}/api/orders/mine
+Authorization: Bearer {{customer_token}}
+
+### Admin: create category
+POST {{baseUrl}}/api/categories
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "name": "Gaming",
+  "description": "Consoles, accessories, and immersive gear."
+}
+
+### Admin: create product in category 1
+POST {{baseUrl}}/api/products
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard",
+  "sku": "ELEC-9001",
+  "description": "Hot-swappable keyboard with tactile switches.",
+  "price": 79.99,
+  "stockQuantity": 18,
+  "imageUrl": "https://example.com/images/keyboard.jpg",
+  "categoryId": 1,
+  "active": true
+}
+
+### Admin: list all orders
+GET {{baseUrl}}/api/orders/admin
+Authorization: Bearer {{admin_token}}
+
+### Admin: update order 1
+PATCH {{baseUrl}}/api/orders/admin/1
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "status": "CONFIRMED",
+  "paymentStatus": "PAID"
+}

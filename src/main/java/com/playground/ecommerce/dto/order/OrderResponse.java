@@ -12,6 +12,9 @@ public class OrderResponse {
 
     private Long id;
     private String orderNumber;
+    private Long customerId;
+    private String customerName;
+    private String customerEmail;
     private OrderStatus status;
     private PaymentStatus paymentStatus;
     private String paymentMethod;
@@ -38,6 +41,30 @@ public class OrderResponse {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public OrderStatus getStatus() {
@@ -128,4 +155,3 @@ public class OrderResponse {
         this.items = items;
     }
 }
-

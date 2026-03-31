@@ -1,21 +1,17 @@
 # Ecommerce Backend API
 
-A Spring Boot ecommerce application focused on secure backend workflows for authentication, catalog management, cart operations, and order processing.
+Spring Boot backend for an e-commerce system with authentication, catalog management, cart flows, and order processing.
 
-## Overview
+## Features
 
-This project follows a layered `Controller -> Service -> Repository` architecture and uses Spring Security, JWT, JPA, and PostgreSQL to model a practical ecommerce backend. It includes role-based access control, structured error handling, OpenAPI documentation, and a companion frontend for local testing.
-
-## Core Features
-
-- Authentication and authorization with JWT
-- Role-based access for `ADMIN` and `USER`
+- JWT-based authentication and authorization
+- Role-based access control for `ADMIN` and `USER`
 - Product and category management APIs
-- Cart management and checkout workflow
-- Order tracking and admin order updates
+- Cart operations and checkout workflow
+- Order tracking and admin order management
 - Filtering and pagination with JPA Specifications
 - RFC 7807 style `application/problem+json` error responses
-- Swagger UI for API exploration and testing
+- Swagger UI for API testing and exploration
 - PostgreSQL configuration with optional local H2 profile
 
 ## Tech Stack
@@ -25,20 +21,19 @@ This project follows a layered `Controller -> Service -> Repository` architectur
 - Spring Security
 - Spring Data JPA
 - PostgreSQL
-- React
-- Vite
+- H2
 - Docker Compose
 - springdoc-openapi
 
 ## Architecture
 
-- `controller` layer for request handling and response mapping
-- `service` layer for business logic and workflow orchestration
+- `controller` layer for request handling
+- `service` layer for business logic
 - `repository` layer for persistence operations
 - `model` layer for JPA entities and relationships
 - `dto` layer for request and response contracts
 
-## Run The Backend
+## Run Locally
 
 1. Start PostgreSQL:
 
@@ -56,24 +51,11 @@ Once running:
 
 - Swagger UI: `http://localhost:8080/swagger-ui.html`
 
-If you want the local H2 profile for quick testing:
+If you want to use the local H2 profile for quick testing:
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 ```
-
-## Run The Frontend
-
-From the `frontend` folder:
-
-```bash
-npm.cmd install
-npm.cmd run dev
-```
-
-Then open:
-
-- Frontend: `http://localhost:5173`
 
 ## Seeded Accounts
 
@@ -94,15 +76,12 @@ Then open:
 
 ## Project Structure
 
-- `src/main/java/...` Spring Boot backend
-- `frontend/` React + Vite frontend
+- `src/main/java/...` Spring Boot backend source
 - `docker-compose.yml` PostgreSQL service
-- `.env.example` backend and frontend environment values
+- `.env.example` backend environment values
 - `ecommerce-api.http` IntelliJ HTTP client requests
 
 ## Environment Variables
-
-Main backend settings:
 
 - `DB_URL`
 - `DB_USERNAME`
@@ -110,13 +89,9 @@ Main backend settings:
 - `JWT_SECRET`
 - `JWT_EXPIRATION_MILLIS`
 
-Frontend:
-
-- `VITE_API_BASE_URL`
-
 ## Error Format
 
-Validation and business errors now return RFC 7807 style responses with:
+Validation and business errors return RFC 7807 style responses with:
 
 - `type`
 - `title`
